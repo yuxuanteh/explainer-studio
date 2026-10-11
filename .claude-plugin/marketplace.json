@@ -1,0 +1,12 @@
+{
+  "name": "explainer-studio",
+  "owner": { "name": "GoldenSpike (金釘子)" },
+  "plugins": [
+    {
+      "name": "explainer-studio",
+      "source": "./",
+      "description": "Science-explainer YouTube pipeline: script, fact check, Manim animation, Whisper cuts, music, subtitles, thumbnails, shorts and upload package.",
+      "version": "0.1.0"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+# Python 3.12. Versions the pipeline was built and tested with; newer minor versions usually work.
+manim==0.22.0
+av==19.0.1
+numpy==2.5.3
+scipy==1.18.1
+pillow==12.3.0
+soundfile==0.14.0
+pedalboard==0.9.26
+pydub==0.25.1
+mido
+faster-whisper==1.2.1
+matplotlib==3.11.2
+cartopy==0.26.0
+shapely==2.2.0
+# optional: real seismic waveforms for extras/make_screens.py
+# obspy==1.5.1

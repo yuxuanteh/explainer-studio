@@ -1,0 +1,10 @@
+{
+  "name": "explainer-studio",
+  "version": "0.1.0",
+  "description": "Make science-explainer YouTube episodes with Claude as the whole crew: fact-checked three-layer scripts, Whisper alignment with loudness-based cuts, Manim animation and camera CG, generated music, burned subtitles, 1080p master, thumbnails, short and the full upload package.",
+  "author": { "name": "GoldenSpike (金釘子)" },
+  "homepage": "https://github.com/yuxuanteh/explainer-studio",
+  "repository": "https://github.com/yuxuanteh/explainer-studio",
+  "license": "MIT",
+  "keywords": ["youtube", "video", "manim", "whisper", "education", "science", "explainer", "subtitles"]
+}
