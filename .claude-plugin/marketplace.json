@@ -1,6 +1,9 @@
 {
   "name": "explainer-studio",
-  "owner": { "name": "GoldenSpike (金釘子)" },
+  "owner": {
+    "name": "GoldenSpike (金釘子)"
+  },
+  "description": "Claude Code plugin for science-explainer YouTube channels: episode pipeline and channel website.",
   "plugins": [
     {
       "name": "explainer-studio",
