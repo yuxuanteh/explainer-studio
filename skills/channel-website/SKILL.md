@@ -77,7 +77,9 @@ and screenshot with the built-in browser (`npm run preview`); otherwise push and
 - In `studio.toml`: `[paths] videos_json = "<site>/src/data/videos.json"` (dedup in new_episode.py) and
   `blog_images = "<site>/public/uploads/blog"`.
 - In CHANNEL.md "Publishing": blog posts go to `<site>/src/content/posts/<date>-<slug>-<lang>.md`, quizzes to
-  `src/content/quizzes/<slug>-<lang>.json`, covers to `public/uploads/`, and the front-matter fields from
+  `src/content/quizzes/<slug>-<lang>.json`, the 9:16 short to `src/data/videos.json` with `"format": "short"`
+  (Shorts from the feed are detected automatically; they appear in the videos page's 60-second section),
+  covers to `public/uploads/`, and the front-matter fields from
   `src/content.config.ts`. Always `git pull` before writing and push only after the director approves.
 
 ## Later changes
