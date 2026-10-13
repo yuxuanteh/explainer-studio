@@ -22,6 +22,7 @@ Reuse what CHANNEL.md already says (name, links, palette, fonts, languages) and 
 - Which pages to keep: videos, blog, quizzes, gallery (and what it shows: rocks, plants, photos...), about,
   earthquake monitor (only fits earth-science channels).
 - Blog categories and video series names.
+- Visitor statistics: do they want them (free Cloudflare Web Analytics, no cookies)?
 
 ## 2 · Create the repo (after a clear yes - it is public)
 ```bash
@@ -42,6 +43,7 @@ Google Drive / OneDrive folder - build in a temporary clone.
 | Menu / remove a page | `src/components/Nav.astro` + delete `src/pages/<page>.astro`, `src/pages/en/<page>.astro`, `src/views/<View>.astro`, its `.pages.yml` block |
 | Categories, series, gallery types | `src/lib/i18n.ts`, `src/content.config.ts`, `.pages.yml` - keep all three in step |
 | Editor in the user's language | translate the labels in `.pages.yml` |
+| Visitor statistics | `cloudflareAnalyticsToken` in `src/data/site.json` (empty = off; see step 5) |
 | About page, sample post / quiz | `src/content/pages/about-*.md`; replace or delete `hello-world-*` and `sample-*` |
 
 Show changes before publishing: if Node.js 22 is available, `npm install && npm run build` in a temporary clone
@@ -61,7 +63,14 @@ and screenshot with the built-in browser (`npm run preview`); otherwise push and
 3. The user connects Pages CMS themselves: https://app.pagescms.org -> sign in with GitHub -> install the app for
    this repo only -> open the repo. Explain the sections (blog posts, quizzes, gallery, video series, did-you-know
    cards, about, site settings, site texts).
-4. Optional auto-translate: the user runs `claude setup-token` and adds the token as the repo secret
+4. Optional visitor statistics (Cloudflare Web Analytics, free, cookie-free, works with GitHub Pages): the user
+   signs up at https://dash.cloudflare.com -> Analytics & Logs -> Web Analytics -> Add a site -> enters the site
+   address -> chooses the manual JS snippet, and gives you only the token (the 32-character value of `"token"`
+   in the snippet; it is public in the page source, not a secret). Put it in `cloudflareAnalyticsToken` in
+   `src/data/site.json` (or the user pastes it in Pages CMS -> 网站设定), push, and after the deploy check the
+   page source contains `static.cloudflareinsights.com/beacon.min.js` with their token. Visits appear in the
+   Cloudflare dashboard within minutes. Never sign up or log in to Cloudflare for the user.
+5. Optional auto-translate: the user runs `claude setup-token` and adds the token as the repo secret
    `CLAUDE_CODE_OAUTH_TOKEN` (Settings -> Secrets and variables -> Actions). Without it the workflow skips.
 
 ## 6 · Link it to the episode pipeline

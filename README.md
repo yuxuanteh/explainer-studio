@@ -66,6 +66,8 @@ and later, for example:
 > Remove the earthquake monitor page and rename the gallery to "Field photos".
 > Make the website editor labels English.
 
+> Add free visitor statistics to my website with Cloudflare Web Analytics.
+
 **4. Make an episode**:
 > Start a new episode about <topic>.
 
