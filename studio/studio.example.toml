@@ -44,7 +44,7 @@ length_unit = "words"           # "cjk": count Chinese / Japanese characters; "w
 pace = 2.5                      # units per second, measured on your own voice (see check_script.py)
 max_cue = 12                    # units per subtitle before it is split (cjk: about 20)
 british_spelling = false        # check_script.py flags American spellings
-term_list = ""                  # optional TOML of local-language term -> English term (see examples/)
+term_list = ""                  # optional TOML of `"local term" = "English term"` lines under [terms]
 new_idea_words = ["But", "So", "Now", "However"]   # a longer pause is kept before a line that starts with these
 
 [ui]

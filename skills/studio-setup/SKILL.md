@@ -18,7 +18,7 @@ short sentences, everyday comparisons for technical things.
    is read, compared and kept unless the person chooses the change.
 
 The plugin's files sit next to this skill: `<this skill's base directory>/../../studio/` (tools, templates, kit),
-`../../channel-template/`, `../../examples/`. Below, `<plugin>` means `<this skill's base directory>/../..`.
+`../../channel-template/`. Below, `<plugin>` means `<this skill's base directory>/../..`.
 
 ## 0 · What is already here?
 Before asking anything, look:

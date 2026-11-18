@@ -21,7 +21,7 @@ PAUSE_PER_LINE = 0.5       # breath between teleprompter lines
 
 
 # Local-language technical terms -> the English term the channel wants in narration / subtitles. Optional: a TOML
-# file of `"local term" = "English term"` lines named by [language] term_list (see examples/terms-geoscience-zh.toml).
+# file of `"local term" = "English term"` lines named by [language] term_list.
 # Leave it empty if your channel keeps terms in the narration language.
 def _load_terms():
     name = gs_env.LANG.get("term_list", "")

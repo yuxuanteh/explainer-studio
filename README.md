@@ -177,7 +177,6 @@ studio"); the setup skill does the rest and asks before it removes anything.
 | `skills/explainer-episode/` | the seven steps and their references (script, facts, recording, editing, visuals, audio, publishing, shorts, batches, commands) |
 | `studio/` | the tools copied into your local studio: `scripts/`, `templates/`, `web/kit/` (animation kit and house styles), `requirements/` |
 | `channel-template/` | `CHANNEL.md` (your channel's profile and decisions), `CLAUDE.md`, `voice-examples.md` (how you talk) |
-| `examples/` | the GoldenSpike channel profile and a Mandarin to English geoscience term list |
 
 Two folders hold your work. The **project folder** (it may be synced with Google Drive, Dropbox or similar) has
 your scripts, recordings and finished videos. The **studio folder** stays on a local disk: tools, the Python

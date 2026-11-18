@@ -143,7 +143,6 @@
 | `skills/explainer-episode/` | 七个步骤和它们的参考文件（台本、事实、录音、剪辑、画面、声音、发布、短片、批次、指令） |
 | `studio/` | 复制到你本机工作室的工具：`scripts/`、`templates/`、`web/kit/`（动画工具和固定风格）、`requirements/` |
 | `channel-template/` | `CHANNEL.md`（你频道的资料和决定）、`CLAUDE.md`、`voice-examples.md`（你怎么讲话） |
-| `examples/` | 金釘子的频道资料，以及一份中文对英文的地球科学术语表 |
 
 你的东西放在两个地方。**项目资料夹**（可以用 Google Drive、Dropbox 之类同步）放台本、录音和做好的影片。**工作室资料夹**留在本机硬盘：工具、Python 环境、语音模型、渲染暂存。
 
