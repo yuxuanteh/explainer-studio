@@ -20,7 +20,7 @@ All commands: from `<studio>/scripts`, with the studio's own Python (`../.venv/S
 | Voice cut alone | `gs_voicecut.py <EP> [short]` | `preview/<EP>-voicecut-480p.mp4` / `preview/short-voicecut.mp4` |
 | Timeline / cut check | `gs_episode.py <EP> timeline [short]` / `check [short]` | shot list with times; cuts not in silence |
 | Sound only | `gs_episode.py <EP> mix` | the mix without video |
-| Subtitle files only | `gs_episode.py <EP> srt` | subtitle files for the long video and the short |
+| Subtitle files only | `gs_episode.py <EP> srt` | `work/subtitles.<lang>_<COUNTRY>.srt`, `publish/short/short.<lang>_<COUNTRY>.srt` |
 | Music library | `gs_tracks.py ["Title" …]` | length, tempo, bars, whether the used-list has the track |
 | House styles | `gs_styles.py list` / `preview [ids] [--vertical]` / `use <ID>` | `<project>/brand/styles/compare.png` |
 | QA before sending | `qa.py <EP> [preview\|final]` | `work/qa.md` |

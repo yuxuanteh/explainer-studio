@@ -90,7 +90,19 @@ video frames on the right and the bottom-left slot left empty for YouTube's own 
 For each video, propose **ideas as text before making anything**: one line each (what the viewer sees, the two or
 three words on it, why it makes someone click) plus the frame or photo it would use. An idea per video, not a
 template with the title swapped. The director picks; then make it: a still of a shot (`gs_web.py <EP> stills`),
-a frame of the camera clip, the house style's colours and title font, large type that reads at phone size. A short's
-cover follows the same rule in 9:16. Version 2 has no thumbnail tool of its own: compose the picture with the
+a frame of the camera clip, the house style's colours and title font, large type that reads at phone size.
+
+### Short covers
+Every short (teaser and standalone) gets a cover, `publish/short/short-cover-1080x1920.png`. The same file is the
+YouTube Shorts thumbnail and the Reels cover.
+- **No presenter on a studio short cover** (a channel may decide otherwise in `CHANNEL.md`). The picture that
+  belongs to the short fills the cover under the question: a real photo, full-bleed, when one carries the question
+  (credited in the short's description; moved down if its subject would sit under the words), otherwise the
+  short's key drawing taken from the final, trimmed to the drawing and enlarged to the width.
+- The short's question in two lines at the top, at least 80 px high, in the house style's ink and accent (with a
+  stroke when it sits on a dark photo).
+- No fading photo strip, no framed box, no collage.
+- Everything that matters sits inside the centred 1080×1350: profile grids crop the rest.
+- The idea goes to the director as text first, like a thumbnail. Version 2 has no thumbnail tool of its own: compose the picture with the
 animation engine (a one-off module rendered as a still) or an image tool, and keep the layered source so the
 director can change it.

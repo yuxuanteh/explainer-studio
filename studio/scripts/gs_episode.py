@@ -12,7 +12,7 @@ CLI (run with the studio venv):
     python gs_episode.py <EPISODE> render preview|final [shot ids...]
     python gs_episode.py <EPISODE> build  preview|final
     python gs_episode.py <EPISODE> mix                 audio mix only (music / voice checks)
-    python gs_episode.py <EPISODE> srt                 rewrite work/zh/en/ja.srt (+ publish/short/short-*.srt), no render
+    python gs_episode.py <EPISODE> srt                 rewrite work/subtitles.<lang>_<COUNTRY>.srt (+ publish/short/short.*.srt), no render
     python gs_episode.py <EPISODE> short preview|final 9:16 short: built from SHORT_SHOTS (written short, its own
                                                        narration) when edl.py has them, else cut from the latest build
     python gs_episode.py <EPISODE> timeline short      / check short: the same for the short's own timeline
@@ -721,7 +721,7 @@ def review_timeline(E, name, video, tl, cs, vertical):
 
 
 def write_srts(E, cs=None, folder=None, prefix=""):
-    """work/zh.srt + en.srt (+ ja.srt when JA exists) from CUES (also `gs_episode.py <EP> srt`: subtitle text
+    """work/subtitles.<lang>_<COUNTRY>.srt, one per subtitle language (gs_env.srt_name), from CUES (also `gs_episode.py <EP> srt`: subtitle text
     changes need no re-render). The short uses folder=publish/short, prefix="short-"."""
     cs = cues(E) if cs is None else cs
     folder = folder or E.EP_DIR / "work"
@@ -730,7 +730,7 @@ def write_srts(E, cs=None, folder=None, prefix=""):
         if not lang or not any(c[k] for c in cs):
             continue
         srt = "\n".join(f"{i}\n{srt_time(c[0])} --> {srt_time(c[1])}\n{c[k]}\n" for i, c in enumerate(cs, 1))
-        (folder / f"{prefix}{lang}.srt").write_text(srt, encoding="utf-8")
+        (folder / gs_env.srt_name(lang, short=bool(prefix))).write_text(srt, encoding="utf-8")
 
 
 def gold(E, text):
@@ -860,7 +860,7 @@ def short(E, mode="preview"):
     """Title band on top, the 16:9 video in the middle, big subtitles under it, channel CTA at the bottom.
 
     With SHORT_SHOTS (written short): builds the short's own 16:9 video + mix in build-short-<mode>/ and uses all of
-    it. Both ways write publish/short/short-zh.srt, short-en.srt (+ short-ja.srt) for the YouTube subtitle tracks.
+    it. Both ways write publish/short/short.<lang>_<COUNTRY>.srt for the subtitle tracks.
     Without: cuts SHORT["segments"] out of the latest long-form build (old way, kept as a backup)."""
     cfg = E.SHORT
     out = E.EP_DIR / "publish" / "short"
@@ -1014,13 +1014,13 @@ def main():
     elif cmd == "srt":
         if E.SHOTS:
             write_srts(E)
-            print(E.EP_DIR / "work" / f"{SUB_LANGS[0]}.srt")
+            print(E.EP_DIR / "work" / gs_env.srt_name(SUB_LANGS[0]))
         out = E.EP_DIR / "publish" / "short"
         if E.SHORT_SHOTS:
             write_srts(short_edl(E), folder=out, prefix="short-")
         elif E.SHORT:
             write_srts(E, short_cues(E, short_segments(E), cues(E)), folder=out, prefix="short-")
-        print(out / f"short-{SUB_LANGS[0]}.srt")
+        print(out / gs_env.srt_name(SUB_LANGS[0], short=True))
     elif cmd == "short":
         short(E, mode)
     else:

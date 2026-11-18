@@ -60,6 +60,31 @@ CJK = LANG.get("length_unit", "cjk") == "cjk"        # narration counted in char
 UI = cfg("ui", "language", "en")                     # language of the review / editing pages and the reports
 
 
+# Subtitle files are named <name>.<language>_<COUNTRY>.srt (subtitles.en_GB.srt, short.zh_CN.srt): Facebook accepts
+# no other shape, and only these language and country pairs (its help page "What is the naming convention for SubRip
+# (.srt) files?", read 2026-11-18). YouTube takes the same files. [language] subtitle_locales = {en = "en_IN"} overrides.
+FB_LOCALES = ("en_GB en_US af_ZA ar_AR ay_BO az_AZ be_BY bg_BG bn_IN bs_BA ca_ES ck_US cs_CZ cx_PH cy_GB da_DK de_DE el_GR en_IN eo_EO es_CL es_CO es_ES es_LA es_MX es_VE et_EE eu_ES fa_IR fi_FI fo_FO fr_CA fr_FR fy_NL ga_IE gl_ES gn_PY gu_IN gx_GR he_IL hi_IN hr_HR hu_HU hy_AM id_ID is_IS it_IT ja_JP jv_ID ka_GE kk_KZ km_KH kn_IN ko_KR ku_TR la_VA li_NL lt_LT lv_LV mg_MG mk_MK ml_IN mn_MN mr_IN ms_MY mt_MT nb_NO ne_NP nl_BE nl_NL nn_NO pa_IN pl_PL ps_AF pt_BR pt_PT qu_PE rm_CH ro_RO ru_RU sa_IN se_NO sk_SK sl_SI so_SO sq_AL sr_RS sv_SE sw_KE sy_SY ta_IN te_IN tg_TJ th_TH tl_PH tr_TR tt_RU uk_UA ur_PK uz_UZ vi_VN xh_ZA yi_DE zh_CN zh_HK zh_TW zu_ZA").split()
+_FIRST = {"en": "en_US", "es": "es_ES", "fr": "fr_FR", "nl": "nl_NL", "pt": "pt_BR", "zh": "zh_CN"}
+
+
+def locale(lang):
+    """A language code as the locale subtitle files are named with: en -> en_US (en_GB with British spelling)."""
+    own = LANG.get("subtitle_locales", {})
+    if lang in own:
+        return own[lang]
+    lang = lang.replace("-", "_")
+    if "_" in lang:
+        a, b = lang.split("_", 1)
+        return f"{a.lower()}_{b.upper()}"
+    if lang == "en" and LANG.get("british_spelling"):
+        return "en_GB"
+    return _FIRST.get(lang) or next((c for c in FB_LOCALES if c.startswith(lang + "_")), f"{lang}_{lang.upper()}")
+
+
+def srt_name(lang, short=False):
+    return f"{'short' if short else 'subtitles'}.{locale(lang)}.srt"
+
+
 def tr(en, zh):
     """A line of a report or a page in the studio's own language ([ui] language = "en" | "zh")."""
     return zh if UI == "zh" else en

@@ -69,6 +69,9 @@ unclear. A missing line is a pickup (recording.md), not something to paper over.
 - Translations come at step 6, keyed on the final text (`CUE_EN`, `CUE_JA`), so later re-cuts keep them;
   `gs_run.py <EP> final` stops if a subtitle has no translation.
 - `gs_episode.py <EP> srt` rewrites the subtitle files without rendering.
+- **File names:** `subtitles.<language>_<COUNTRY>.srt` for a long video and `short.<language>_<COUNTRY>.srt` for a short (`subtitles.en_GB.srt`, `short.zh_CN.srt`). Facebook accepts
+  subtitle files only in this shape, and YouTube takes the same files. The country follows the language (`en` is
+  `en_GB` with British spelling, else `en_US`); `[language] subtitle_locales = {en = "en_AU"}` sets it by hand.
 
 ## edl.py (data only)
 `TRACKS` / `SHORT_TRACKS` (music), `CUE_TEXT`, `CUE_EN`, `CUE_JA`, `GOLD_TERMS`, `SFX`, `SQUEEZE`, `CAM_GRADE` (the

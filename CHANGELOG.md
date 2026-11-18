@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.0.1 (2026-11-18)
+- Subtitle files are named `subtitles.<language>_<COUNTRY>.srt` and `short.<language>_<COUNTRY>.srt`: Facebook accepts
+  no other shape (they were `en.srt`, `short-en.srt`). Rename files of videos already made, or run
+  `gs_episode.py <EP> srt` again.
+- Rules for short covers (visuals.md): the picture that belongs to the short under its question, no presenter on
+  a studio short cover, one file for the Shorts thumbnail and the Reels cover.
+- The `examples/` folder is removed.
+
 ## 2.0.0 (2026-11-18)
 
 The studio pipeline as it runs today, replacing the first public version. Version 0.1.0 stays available as the git

@@ -9,7 +9,7 @@
       "name": "explainer-studio",
       "source": "./",
       "description": "Explainer video pipeline: script, fact check, automatic cut with review and editing pages, web animation in a house style, music, subtitles, shorts and the upload package. Hardware check and per-part install at setup.",
-      "version": "2.0.0"
+      "version": "2.0.1"
     }
   ]
 }

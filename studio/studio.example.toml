@@ -40,6 +40,7 @@ whisper_prompt_prefix = ""      # helps Whisper with punctuation / script; Manda
 subtitle_main = "en"            # burned-in subtitle language (the narration)
 subtitle_second = ""            # a translated SRT track ("en", "zh", ...); "" = none
 subtitle_third = ""             # a second translated track; "" = none
+# subtitle_locales = { en = "en_AU" }   # country part of subtitle file names (subtitles.en_GB.srt); default: from the language
 length_unit = "words"           # "cjk": count Chinese / Japanese characters; "words": count words
 pace = 2.5                      # units per second, measured on your own voice (see check_script.py)
 max_cue = 12                    # units per subtitle before it is split (cjk: about 20)

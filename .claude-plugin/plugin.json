@@ -1,6 +1,6 @@
 {
   "name": "explainer-studio",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Make explainer videos for YouTube with Claude as the whole crew: fact-checked script in your own voice, automatic first cut with a voice-cut review page and editing page, web animation in your house style, music fitted to the cut, burned subtitles, 1080p master, 9:16 short and the upload package. Setup checks your computer, estimates the time per step and asks before installing each part.",
   "author": {
     "name": "GoldenSpike (金釘子)"

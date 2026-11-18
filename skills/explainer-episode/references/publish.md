@@ -25,8 +25,10 @@ sentences (`voice-examples.md`), concrete things from the video.
    references, one per line, from `work/references.md` → links from CHANNEL.md → the music credit (audio.md) → three
    hashtags on the last line.
 4. **Tags:** comma-separated keywords in the channel's languages.
-5. **Subtitles:** the files from `publish/` (the narration language and each translation). For each translated
-   track YouTube wants a translated title and description: write them.
+5. **Subtitles:** the files from `publish/` (the narration language and each translation), named
+   `subtitles.<language>_<COUNTRY>.srt` and, for the short, `short/short.<language>_<COUNTRY>.srt`. Facebook takes
+   subtitle files only with such names (list them under each Reel for Facebook); YouTube takes the same files.
+   For each translated track YouTube wants a translated title and description: write them.
 6. **Pinned comment:** the video's question for the comments (the one on the end card).
 7. **End screen and cards:** the last 12 s. Video top right: "best for viewer" or a related video; bottom right:
    the series playlist; the subscribe element in the bottom-left slot. One or two info cards where an older video
@@ -34,7 +36,8 @@ sentences (`voice-examples.md`), concrete things from the video.
 8. **Settings:** category (the best fit; a news short is news), language, captions, made for kids: no, playlist,
    altered or synthetic content: "no" unless realistic AI imagery or voice was used.
 9. **The short** (teaser or standalone): title, description **without links** (links in a short's description
-   cannot be clicked), the related video, the subtitle files, the cover.
+   cannot be clicked), the related video, the subtitle files, the cover (`short/short-cover-1080x1920.png`,
+   visuals.md "Short covers": uploaded as the Shorts thumbnail and used as the Reels cover).
 10. **Other platforms** (only those CHANNEL.md lists): one caption per platform in that platform's habits (where
     links do not work in captions, point to the profile instead); say which file to upload and in which format.
 11. **Duplicate check:** a line on how this video differs from the nearest published one.
