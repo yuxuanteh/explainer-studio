@@ -1,32 +1,51 @@
-# Command cheat-sheet
+# Command sheet
 
-All commands: `cd <studio>/scripts` then run with the studio venv
-(`../.venv/Scripts/python.exe <script> ...` on Windows, `../.venv/bin/python <script> ...` elsewhere).
-In Git Bash prefix `PYTHONIOENCODING=utf-8` when the output contains CJK text.
+All commands: from `<studio>/scripts`, with the studio's own Python (`../.venv/Scripts/python.exe` on Windows,
+`../.venv/bin/python` elsewhere). Set `PYTHONIOENCODING=utf-8` when a console cannot print the narration language.
 
-| Step | Command | Output |
+| Step | Command | Result |
 |---|---|---|
-| Health check | `doctor.py` | config, ffmpeg + encoder, fonts, Whisper model, music tools |
-| New episode | `new_episode.py 01 granite "Working title" "Rocks"` | project + studio folders, templates, published-video list |
-| Script length | `check_script.py 01-granite [--fix]` | units, ≈ duration, subtitle / term / spelling warnings; `--fix` tidies CJK spacing |
-| Transcribe | `transcribe.py "<project>/episodes/01-granite" voice.wav cam-S05.m4a` | `work/<stem>.whisper.json/.txt` |
-| Cut list | `<studio>/episodes/01-granite/make_edl.py` | prints SHOTS / CUES / SQUEEZE to paste into edl.py |
-| Timeline | `gs_episode.py 01-granite timeline` | shot list with start/end/beats |
-| Cut check | `gs_episode.py 01-granite check` | flags cuts that are not in silence |
-| Render | `gs_episode.py 01-granite render preview [S03 S04]` | `<studio>/render/01-granite/videos/...` |
-| Self-review | `review_frames.py 01-granite [preview|final] [S03 S04]` | `render/<EP>/review/page*.png` (3 frames/shot, CG composited) |
-| Audio only | `gs_episode.py 01-granite mix` | final audio mix without the video |
-| Subtitles only | `gs_episode.py 01-granite srt` | rewrites both SRTs in `work/` from CUES (no render) |
-| Rough cut | `gs_episode.py 01-granite build preview` | `preview/01-granite-rough-480p.mp4` + SRTs |
-| Final | `gs_episode.py 01-granite render final` then `build final` | `publish/01-granite-1080p.mp4` |
-| Short | `gs_episode.py 01-granite short [preview|final]` | `publish/short/short-9x16-*.mp4` |
-| Presenter photo | `gs_thumbs.py 01-granite photo camS05 7.0 [center_x]` | photo fades for thumbnails / IG |
-| Thumbnails | `gs_thumbs.py 01-granite` | `publish/thumbnails/thumb-*.png` (4 layers), IG + FB covers |
-| Backup code | `backup_code.py` | `[paths] backup` (default `<project>/studio-code-backup/`) |
-| Brand audio | `make_music.py`, `../templates/intro_audio.py`, `make_samples.py` | music library, intro sting, listening samples |
+| New episode | `new_episode.py 04 rock-cycle "Title" "Series"` | project + studio folders, script template, checklist, list of published videos and pieces in production |
+| New short outside a batch | `new_short.py next city-quake "Title" "Field" [news]` | `shorts/ss<NNN>-<slug>/` |
+| New short inside a batch | `new_short.py next hollow-hill "Title" "Field" --batch` | `shorts/s<NNN>-<slug>/` |
+| New batch | `new_batch.py b02 04-rock-cycle 05-… s005-… s006-…` | `batches/b02/batch.md`, `batch.json`, `raw-inbox/` |
+| Run sheet | `new_batch.py b02 runsheet` / `new_batch.py 04-rock-cycle runsheet` | `runsheet.md` |
+| Script check | `check_script.py 04-rock-cycle [--fix]` | lengths, estimated duration, warnings |
+| Intake | `intake.py 04-rock-cycle` / `intake.py b02`, then `--apply` | `intake.md`, files renamed into `raw/`, transcripts in `work/noprompt/` |
+| Recording diff | `recording_diff.py 04-rock-cycle` | `work/recording-diff.md` |
+| **Build anything** | `gs_run.py <EP> voicecut` / `preview [ids]` / `final` (`--keep-cut`, `--no-anim`) | every check in order, stops at the first problem; `READY` lines name the files; logs and `timings-<mode>.json` in `render/<EP>/logs/` |
+| Review + editing pages | `gs_review.py [port]` (run in the background) | http://localhost:8770 · notes in `work/review/<name>.notes.json` · edits in `work/edit.json` |
+| Automatic cut alone | `gs_cut.py <EP> [--dry]` | `edl_auto.py`, `work/cut-report.md` |
+| Listen to one stretch again | `transcribe.py <episode folder> --stretch <file> <from> <to>` | words merged into `work/noprompt/<stem>.json` (old file kept) |
+| Voice cut alone | `gs_voicecut.py <EP> [short]` | `preview/<EP>-voicecut-480p.mp4` / `preview/short-voicecut.mp4` |
+| Timeline / cut check | `gs_episode.py <EP> timeline [short]` / `check [short]` | shot list with times; cuts not in silence |
+| Sound only | `gs_episode.py <EP> mix` | the mix without video |
+| Subtitle files only | `gs_episode.py <EP> srt` | subtitle files for the long video and the short |
+| Music library | `gs_tracks.py ["Title" …]` | length, tempo, bars, whether the used-list has the track |
+| House styles | `gs_styles.py list` / `preview [ids] [--vertical]` / `use <ID>` | `<project>/brand/styles/compare.png` |
+| QA before sending | `qa.py <EP> [preview\|final]` | `work/qa.md` |
+| Review sheets | `review_frames.py <EP> [preview\|final] [ids]` | `render/<EP>/review/page*.png` |
+| Commons photo | `gs_photo.py <EP> "<Commons file page>" [name.jpg] [--width 1920]` | `web/ep/<EP>/assets/<name>` + the credit row |
+| Back up the code | `backup_code.py` | `<project>/studio-code-backup/` |
+| Parts | `setup_studio.py list` / `status` / `install <part>` / `remove <part>` / `set <section> <key> <value>` | see the studio-setup skill |
+| This computer | `probe.py [--minutes 6] [--short 1] [--model …] [--json]` | hardware, speed, time per step |
+| Try-it sample | `make_sample.py [--record]` | the short `ss900-sample` with a synthetic recording |
 
-## Quick looks (ffmpeg contact sheets)
+## Animation engine (`gs_web.py`)
+| Step | Command | Result |
+|---|---|---|
+| Starting modules | `gs_web.py <EP> stubs` | a module in the house style for every shot without one |
+| Stills of one shot | `gs_web.py <EP> stills S05 0.5,3,7 [--guides]` | `render/<EP>/web-qa/S05/` PNGs + `sheet.png` |
+| Determinism | `gs_web.py <EP> check [ids]` | ok / NOT deterministic per shot |
+| Render shots | `gs_web.py <EP> render preview\|final [ids]` | `render/<EP>/videos/web/<mode>/<id>.mp4` (+ `-matte.mp4` for camera graphics) |
+| Live workspace | `gs_web.py <EP> review [ids] [--short]`, then run the printed `node … editor.mjs …` in the background | a page with the shots and their sound |
+| Motion QA | `gs_web.py <EP> qa [--short]` | technical checks + dead air, jumps, flash frames |
+
+The renderer is the motion-showreel plugin's `scripts/` folder (found in Claude Code's plugin folders; `[paths]
+motion_showreel` or the `MOTION_SHOWREEL` environment variable overrides). Its Node packages are in
+`<studio>/web/node_modules` (`setup_studio.py install animation`).
+
+## Quick look at a video (contact sheet)
 ```bash
 ffmpeg -v error -y -i video.mp4 -vf "fps=1/4,scale=320:180,tile=4x6" -frames:v 1 -update 1 sheet.png
 ```
-Use forward slashes in Python paths on Windows (`\f`, `\t` in a normal string become escape characters).

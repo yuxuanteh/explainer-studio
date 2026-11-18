@@ -1,52 +1,42 @@
-# <Channel name> · channel profile and style bible
+# <Channel name> · channel profile
 
-Claude reads this before every episode step. When this file and the explainer-episode skill disagree, this file
-wins. Add every new house rule the director gives to the decisions log at the bottom, with the date.
+Filled in by the studio-setup skill from the interview. Claude reads this before working on any piece. Decisions
+here win over the plugin's general rules. Add a dated line whenever the director decides something that should hold
+for future videos.
 
 ## The channel
-- Name / short name / tagline:
-- Topic area:
-- Audience: who they are, what level, which country and schooling (this decides terms and spelling).
-- Series (playlists) and the episode list so far:
-- Links: website, blog, Instagram, Facebook, LinkedIn, contact email:
+- Name, short name, tagline:
+- Website and other links (for descriptions):
+- Presenter and the one honest line under the name:
+- Platforms the director posts to (YouTube, and which others; how each is posted):
 
-## The presenter
-- Name on screen:
-- Name tag line 2 (honest description; never a professional title you do not hold):
-- Background Claude may mention (studies, research, job) and what is off limits:
+## Audience
+- Who they are (age, place, what they already know):
+- Narration language; where technical terms are said in another language and which:
+- Spelling standard for translated text:
+- Subtitle languages (burned-in / translated files):
 
-## Language
-- Narration language and script (e.g. Mandarin, simplified characters):
-- Burned-in subtitles: language; second SRT track: language
-- Technical terms: keep in <language> (why: ...). A translation may appear once, small, on screen.
-- Spelling standard (e.g. British English everywhere except quoted titles and code):
-- Tone: (e.g. talk to the viewer, short spoken sentences, local references welcome when verified)
-- Translation rule: natural, same meaning, not word for word, no AI tone (see the skill's GOLDEN RULE).
+## What is made
+- Formats (long video + teaser short, standalone shorts, news shorts) and usual lengths:
+- On camera, voice only, or both; about how much on camera:
+- Series or fields of the channel:
 
-## Look
-- Channel palette (intro, end card, logo, name tag only; episodes pick their own palette): see `[palette]` in
-  studio.toml. Notes:
-- Fonts: see `[fonts]`. Notes:
-- Logo files: `brand/logo/...` (watermark top-right, seal on intro / end card)
-- Camera set: where the presenter sits, the free wall zone for CG (x range at 1080p), lighting notes:
+## House style
+- Style: `<ID>` in `<studio>/web/kit/themes.json`. Chosen on <date> because:
+- What belongs to it (drawing pieces, symbols, photo frames) and what never does:
+- Logo files: `brand/logo/watermark.png`, `brand/logo/seal.png`
 
-## Sound
-- Music taste (e.g. warm, bass-heavy orchestra; avoid bright strings):
-- Voice processing preference (`TAIL_EXPANDER`, A/B results):
-- Music credit line used in descriptions (honest: composed by AI and synthesised):
+## Music
+- Mode: library / own / score / none. Chosen on <date> because:
+- Where library tracks come from and the licence the director relies on:
+- Credit line to use in descriptions:
 
-## Facts and sources
-- Usual primary sources for this topic (agencies, databases, journals):
-- Local sources (national agencies, local news outlets for news cards):
-- Data used on screen (catalogues, APIs) and their credit lines:
+## The studio
+- Studio folder: `<STUDIO PATH>` · installed parts: · skipped parts (and the sentence that adds one later):
+- This computer's time estimate for a usual video (from `probe.py`, on <date>):
 
-## Publishing
-- Description layout (hook lines, chapters, references, links, music credit, hashtags):
-- YouTube education fields: academic system, typical level:
-- Quiz: languages, website format if any:
-- Blog: where posts live (repo / CMS path), front-matter fields, image folder, post format rules:
-- Social: which platforms, tone per platform:
-- Shorts: CTA line, caption format:
+## Script decisions
+(dated lines: what the director changed about how scripts are written)
 
-## Decisions log
-<!-- YYYY-MM-DD  rule the director gave, and why -->
+## Other decisions
+(dated lines)

@@ -3,13 +3,13 @@
   "owner": {
     "name": "GoldenSpike (金釘子)"
   },
-  "description": "Claude Code plugin for science-explainer YouTube channels: episode pipeline and channel website.",
+  "description": "Claude Code plugin for explainer YouTube channels: the whole video pipeline, from topic to upload package.",
   "plugins": [
     {
       "name": "explainer-studio",
       "source": "./",
-      "description": "Science-explainer YouTube pipeline: script, fact check, Manim animation, Whisper cuts, music, subtitles, thumbnails, shorts and upload package.",
-      "version": "0.1.0"
+      "description": "Explainer video pipeline: script, fact check, automatic cut with review and editing pages, web animation in a house style, music, subtitles, shorts and the upload package. Hardware check and per-part install at setup.",
+      "version": "2.0.0"
     }
   ]
 }

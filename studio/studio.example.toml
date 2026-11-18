@@ -1,65 +1,74 @@
-# Explainer Studio settings. Copy to studio.toml (next to this file) and fill in.
+# Explainer Studio settings. The setup skill writes studio.toml (next to this file) from your answers.
 # Relative paths are relative to this studio folder. Use forward slashes, also on Windows.
 
 [paths]
-project = "D:/MyChannel"        # synced folder (Drive / Dropbox / OneDrive): CHANNEL.md, brand/, episodes/
-models = "models"               # Whisper model lives here (about 3 GB, not synced)
-render = "render"               # Manim render cache (safe to delete)
+project = "D:/MyChannel"        # synced folder (Drive / Dropbox / OneDrive): CHANNEL.md, brand/, episodes/, shorts/
+models = "models"               # Whisper model lives here (0.5-3 GB, not synced)
+render = "render"               # render cache (safe to delete)
 ffmpeg_bin = ""                 # folder containing ffmpeg; empty = use ffmpeg from PATH
 backup = ""                     # where backup_code.py copies the studio code; empty = <project>/studio-code-backup
 videos_json = ""                # optional: JSON list of published videos {"videos": [{date, series, title}]} for dedup
-blog_images = ""                # optional: where extras/make_blog_figures.py writes figures
+music_library = ""              # folder of music tracks ("Title - Artist.mp3"); empty = <project>/music
+music_used = ""                 # the used-list (a Markdown table); empty = <project>/music-used.md
+motion_showreel = ""            # folder of the motion-showreel plugin; empty = found in Claude Code's plugin folders
+
+[components]                    # what you chose to install (setup_studio.py keeps this up to date)
+whisper = true                  # automatic cut, subtitle timing, intake
+animation = true                # animated shots and CG over camera; false = plain cards, camera without CG
+music_fit = false               # fit library / own music tracks to the cut (librosa)
+score = false                   # programmed score composed by Claude (FluidSynth + SoundFont)
 
 [channel]
-name = "My Channel"             # shown in the intro, end card, IG cover
-short_name = "MC"               # used when there is no logo file (watermark / seal fallback)
+name = "My Channel"             # shown in the intro and on covers
+short_name = "MC"               # used where there is no logo file (watermark, intro)
 tagline = "Science, explained slowly"
 website = "example.com"         # shown on the end card; empty = hidden
 presenter = "Your Name"         # name tag line 1
 presenter_title = "What you do, honestly"   # name tag line 2 (never a professional title you do not hold)
 subscribe_label = "Subscribe"
-next_label = ""                 # optional second label next to NEXT EPISODE on the end card, e.g. "下一期"
-intro_title = "My Channel"      # big line under the logo in the intro sting
+comment_label = "Tell me in the comments"   # beside COMMENT on the end card
+watch_label = "Watch next"      # label over the end card's video frame
+chapter_label = "CHAPTER"
+diagram_label = "Diagram"       # source note of a shot that is an illustration, not data
 short_cta = "Full video on YouTube: search \"My Channel\""   # bottom line of the 9:16 short
 logo_watermark = "brand/logo/watermark.png"   # relative to the project; optional (falls back to short_name)
-logo_seal = "brand/logo/seal.png"             # round badge for intro / end card; optional
+logo_seal = "brand/logo/seal.png"             # round badge for the intro; optional
 
 [language]
-narration = "zh"                # Whisper language code of the narration (zh, en, ms, ja, ...)
-whisper_prompt_prefix = "以下是普通话的句子。"   # helps Whisper with punctuation / script; "" for none
-subtitle_main = "zh"            # burned-in subtitle language (the narration)
-subtitle_second = "en"          # second SRT track (translation); "" = none
-length_unit = "cjk"             # "cjk": count Chinese/Japanese characters; "words": count words
-pace = 3.9                      # units per second, measured on your own voice (see check_script.py)
-max_cue = 20                    # units per subtitle cue before it should be split
-british_spelling = true         # check_script.py flags American spellings
+narration = "en"                # Whisper language code of the narration (zh, en, ms, ja, ...)
+whisper_prompt_prefix = ""      # helps Whisper with punctuation / script; Mandarin: "以下是普通话的句子。"
+subtitle_main = "en"            # burned-in subtitle language (the narration)
+subtitle_second = ""            # a translated SRT track ("en", "zh", ...); "" = none
+subtitle_third = ""             # a second translated track; "" = none
+length_unit = "words"           # "cjk": count Chinese / Japanese characters; "words": count words
+pace = 2.5                      # units per second, measured on your own voice (see check_script.py)
+max_cue = 12                    # units per subtitle before it is split (cjk: about 20)
+british_spelling = false        # check_script.py flags American spellings
 term_list = ""                  # optional TOML of local-language term -> English term (see examples/)
-new_idea_words = ["可是", "但是", "然而", "有趣的是", "那", "我们", "还有一点", "反过来"]   # longer pause before these
+new_idea_words = ["But", "So", "Now", "However"]   # a longer pause is kept before a line that starts with these
 
-[palette]                        # channel colours (intro, end card, name tag, subtitles). Episodes pick their own.
+[ui]
+language = "en"                 # language of the review / editing pages and the reports: "en" | "zh"
+
+[style]
+house = "BLUEPRINT"             # the channel's house style: an entry of web/kit/themes.json, or "CHANNEL" = [palette]
+
+[palette]                        # the channel's own colours = the CHANNEL look (intro, cards, name tag, 16:9-in-9:16 band)
 accent = "#F2B90D"
-accent_hi = "#FFD95C"
 accent_deep = "#8A6400"
-accent2 = "#00C8D2"
 bg = "#1A160C"
 bg_deep = "#131008"
 card = "#231E10"
-line = "#493F22"
 text = "#F5F1E8"
 muted = "#CBBC90"
 
-[fonts]                          # family names as installed in the OS
-title = "Noto Serif SC"
-body = "Noto Sans SC"
-label = "Space Grotesk"         # Latin only: use mixed() for labels with CJK
-tagline = "Playfair Display"
-body_latin = "Manrope"
-subtitle = "Noto Sans SC Medium"
-subtitle_heavy = "Noto Sans SC Black"
-subtitle_files = ["NotoSansSC-Medium.ttf", "NotoSansSC-Black.ttf"]   # in <project>/brand/fonts/static, for ffmpeg
+[fonts]                          # written by `setup_studio.py install fonts`
+subtitle = "Noto Sans Medium"
+subtitle_heavy = "Noto Sans Black"
+subtitle_files = ["NotoSans-Medium.ttf", "NotoSans-Black.ttf"]   # in web/fonts, for ffmpeg
 
 [video]
-# encoder for the 1080p master. libx264 works everywhere; hardware options are faster:
+# encoder for the 1080p master. libx264 works everywhere; hardware options are faster (probe.py suggests one):
 #   Intel: ["-c:v", "h264_qsv", "-global_quality", "20", "-preset", "slow"]
 #   NVIDIA: ["-c:v", "h264_nvenc", "-cq", "20", "-preset", "p6"]
 #   Apple: ["-c:v", "h264_videotoolbox", "-q:v", "65"]
@@ -67,11 +76,11 @@ final_encoder = ["-c:v", "libx264", "-preset", "slow", "-crf", "18"]
 fps = 30
 
 [whisper]
-model = "models/faster-whisper-large-v3"
+model = "models/faster-whisper-large-v3"   # or faster-whisper-medium / -small (setup_studio.py install whisper --model medium)
 device = "cpu"                  # "cuda" with an NVIDIA GPU
 compute_type = "int8"           # "float16" on GPU
 
 [music]
-fluidsynth = "tools/fluidsynth/bin/fluidsynth.exe"   # or just "fluidsynth" when it is on PATH
+mode = "library"                # "library" (downloaded tracks) | "own" (your own music) | "score" (programmed) | "none"
+fluidsynth = "fluidsynth"       # programmed score only: the fluidsynth program (on PATH, or a full path)
 soundfont = "soundfonts/GeneralUser-GS.sf2"
-vsco_samples = "samples/VSCO-2-CE"                   # optional, only for gs_sampler.py

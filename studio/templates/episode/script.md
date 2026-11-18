@@ -1,48 +1,81 @@
 # {{EPISODE_NO}} · {{TITLE}}
 
-> Series: {{SERIES}} · target 5-10 minutes (check with `python check_script.py {{EPISODE}}`)
-> Fact-check table: `work/references.md` (every number and claim needs a source, or it stays out of the script)
+> Series: {{SERIES}} · long video 5–8 minutes (up to 10 when the topic needs it)
+> Teaser short: about 1 minute, its own narration (not cut from the long video)
+> Writing rules: the skill's `references/script-writing.md` only. Length and subtitle check: `check_script.py {{EPISODE}}`
+> Fact table: `work/references.md` (every number and claim has a source, or it is not in the script)
+> Logic draft: `work/logic-draft.md` (approved before any narration is written)
 
-## 1. Teleprompter (read only this block)
+## 1 · Teleprompter (read only this part aloud)
 
-> One line = one breath, half a second between lines. If you slip, pause 2 s and re-read that line.
-> Start every recording with 3 s of silence. Keep each phrase short enough for one subtitle cue.
+> One line = one breath, half a second between lines. After a slip: stop two seconds, read the whole line again.
+> Start every recording with three seconds of silence. Talk to one friend across a table, not to a class.
+> A line that starts with `[CAM]` is on camera; `[CAM · demo: a rock]` names the prop. Lines in (brackets) are notes.
+
+### Long video (question ladder)
 
 ```
-S01  (hook: grab in the first seconds - a shared experience, a counter-intuitive fact, a striking event, a question)
+S01  (hook: a question real viewers ask, starting from something they have seen; no answer yet)
 
-C1   (chapter 1 · the basics: a complete beginner can follow - analogies, pictures, everyday experience)
+C1   (question 1, in the viewer's own words: the chapter card shows this question)
 S02
-S03
+S03  (last line of the chapter: leads to the next question)
 
-C2   (chapter 2 · how it works: for viewers who want to really understand - mechanism, key numbers, why)
-S04
+C2   (question 2: grows out of the last answer, "but then...?")
+S04  [CAM · demo: ...]
+     (whole sentences, read as written)
 S05
 
-C3   (chapter 3 · going deeper: people in the field still learn something - details, real data, misconceptions)
+C3   (question 3: real data, a local case, a common mistake, where the simple picture stops working)
 S06
 S07
 
-S08  (answer every question the hook raised, in plain words, then one natural closing line - no "to summarise")
+S08  (pay-off: answer the hook from a new angle, pulling the chapters together; no repeated lines, no "to sum up")
 
-END  (next episode teaser: one or two lines)
+END  (a short goodbye, one or two sentences)
 ```
 
-## 2. Shot table
+### Teaser short (recorded in the same session, read separately; it answers its question in full)
 
-| # | Narration (summary) | Picture / animation | Layout | Music mood | SFX | Source note |
-|---|---|---|---|---|---|---|
-| S01 | | | full screen / camera | tense | | |
-| INTRO | - | intro sting | full screen | intro | - | - |
-| C1 | - | chapter card | full screen | curious | transition | - |
-| END | next episode | end card (12 s) | template | outro | - | - |
+```
+X01  [CAM]
+     (hook: the viewer's question in their own words, 2–4 s, no greeting, no answer yet)
+X02  (so... so...: one step leads to the next)
+X03
+X04  (pay-off: the full answer once, coming back to the opening picture with something new)
+```
 
-**Episode palette** (intro, end card, logo and name tag always use the channel palette):
+## 2 · The hook's question → the line that answers it
 
-## 3. Fact check and sources
-See `work/references.md` (claim -> verdict -> source link; note any difference from the source).
+| Question the hook asks | Line that answers it |
+|---|---|
+| | |
 
-## 4. Recording guide
-- Voice: quiet room, phone or mic 10-15 cm from the mouth, slightly off-axis; WAV if possible (48 kHz). File: `raw/voice.wav` (or .m4a).
-- Camera: landscape 16:9, fixed tripod, a clean wall area beside you for CG. Files: `raw/cam-<shot id>.mp4`. Clap once at the start of each take.
-- When done, tell Claude: "the {{EPISODE}} recordings are in raw".
+## 3 · Newcomer test (one line per chapter)
+
+| Chapter | Why someone who never studied this can follow it after the chapters before |
+|---|---|
+| C1 | |
+| C2 | |
+| C3 | |
+
+## 4 · Left for the blog / description
+
+What fails the newcomer test is not forced into the video; it goes here with its source.
+
+| Content | Source |
+|---|---|
+| | |
+
+## 5 · Shot table
+
+| # | Narration (summary) | Picture / animation | Layout | Sound | Source note |
+|---|---|---|---|---|---|
+| S01 | | | full screen / on camera | | |
+| INTRO | — | channel intro | full screen | — | — |
+| C1 | — | chapter card (the question) | full screen | — | — |
+| END | goodbye | end card (12 s) + one question for the comments: (...) | template | — | — |
+| X01–X04 | short | reuse the long video's animation where possible (simpler, fewer labels) | 9:16 | | |
+
+## 6 · Facts and sources
+See `work/references.md` (claim → verdict → source link). The short's facts are in it too.

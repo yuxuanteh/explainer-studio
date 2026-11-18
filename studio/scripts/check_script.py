@@ -2,7 +2,7 @@
 
     python check_script.py <EPISODE>
 
-Reads the teleprompter block (the first ``` fenced block). Lines starting with a shot id (S01, C1 ...) start a
+Reads the teleprompter blocks (the ``` fenced blocks: the long video, then the short). Lines starting with a shot id (S01, C1 ...) start a
 section; following indented lines belong to it. Estimates duration from the presenter's measured pace ([language] pace in studio.toml).
 """
 import re
@@ -108,31 +108,38 @@ def fix_block(path):
 def main():
     ep = sys.argv[1]
     if "--fix" in sys.argv:
-        n = fix_block(gs_env.EPISODES / ep / "script.md")
+        n = fix_block(gs_env.ep_dir(ep) / "script.md")
         print(f"--fix: {n} line(s) tidied\n")
-    text = (gs_env.EPISODES / ep / "script.md").read_text(encoding="utf-8")
-    block = re.search(r"```[a-z]*\n(.*?)```", text, re.S)
-    if not block:
+    text = (gs_env.ep_dir(ep) / "script.md").read_text(encoding="utf-8")
+    blocks = re.findall(r"```[a-z]*\n(.*?)```", text, re.S)
+    if not blocks:
         raise SystemExit("no ``` teleprompter block found in script.md")
+    from gs_text import MARK
     sections, cur = [], None
-    for raw in block.group(1).splitlines():
-        m = re.match(r"^((?:S|C)\d+[a-z]?|END)\s+(.*)$", raw.strip())
+    for raw in "\n".join(blocks).splitlines():
+        m = re.match(r"^((?:S|C|X)\d+[a-z]?|END)\s+(.*)$", raw.strip())
         if m:
             cur = [m.group(1), []]
             sections.append(cur)
             line = m.group(2)
         else:
             line = raw.strip()
-        if line and cur:
+        line = re.sub(MARK, "", line).strip()                 # [CAM] markers and stage notes are not spoken
+        if line and cur and not line.startswith(("(", "（")) and not cur[0].startswith("C"):
             cur[1].append(line)
 
     total_chars, total_s, warnings = 0, 0.0, []
+    short_chars, short_s = 0, 0.0
     print(f"{'shot':6s} {'chars':>6s} {'≈sec':>6s}  first line")
     for sid, lines in sections:
         chars = sum(spoken_len(x) for x in lines)
         secs = chars / PACE + PAUSE_PER_LINE * len(lines)
-        total_chars += chars
-        total_s += secs
+        if sid.startswith("X"):                               # the short has its own length
+            short_chars += chars
+            short_s += secs
+        else:
+            total_chars += chars
+            total_s += secs
         print(f"{sid:6s} {chars:6.0f} {secs:6.1f}  {lines[0][:28] if lines else ''}")
         for x in lines:
             for piece in re.split(r"[,.?!;:，。？！；：]", x):
@@ -143,12 +150,17 @@ def main():
             warnings += spelling_warnings(sid, x)
             if UNIT == "cjk" and "，" in x:
                 warnings.append(f"{sid}: full-width comma “，” -> use half-width “, ” (subtitle rule)")
-    m, s = divmod(int(total_s), 60)
+    unit = "chars" if UNIT == "cjk" else "words"
     lo, hi = TARGET
-    verdict = "within 5-10 min ✓" if lo <= total_s <= hi else ("too short (< 5 min)" if total_s < lo else "too long (> 10 min)")
-    print(f"\ntotal {total_chars:.0f} spoken chars ≈ {m}:{s:02d}  ->  {verdict}")
-    print(f"(target {lo / 60:.0f}-{hi / 60:.0f} min ≈ {lo * PACE:.0f}-{hi * PACE:.0f} chars at {PACE} chars/s; "
-          "plus intro, chapter cards and the 12 s end card)")
+    if total_s:
+        m, s = divmod(int(total_s), 60)
+        verdict = "within 5-10 min ✓" if lo <= total_s <= hi else ("too short (< 5 min)" if total_s < lo else "too long (> 10 min)")
+        print(f"\nlong video: {total_chars:.0f} spoken {unit} ≈ {m}:{s:02d}  ->  {verdict}")
+        print(f"(target {lo / 60:.0f}-{hi / 60:.0f} min ≈ {lo * PACE:.0f}-{hi * PACE:.0f} {unit} at {PACE} {unit}/s; "
+              "plus intro, chapter cards and the 12 s end card)")
+    if short_s:
+        print(f"\nshort: {short_chars:.0f} spoken {unit} ≈ {short_s:.0f} s  ->  "
+              + ("about a minute ✓" if 35 <= short_s <= 80 else "length is a reference only: clarity first, ask before cutting ideas"))
     if warnings:
         print("\nsubtitle / style warnings:")
         for w in warnings:

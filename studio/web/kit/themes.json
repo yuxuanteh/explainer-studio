@@ -1,0 +1,21 @@
+{
+  "_note": "House styles. One entry = one look for cards, name tag, labels, the ground of every shot and the burned subtitles. BLUEPRINT, CHALK and POSTER are examples to choose from or copy; add your own entry (Claude does this with you at setup) and name it in studio.toml [style] house. ground: grid | dust | flat | paper. plate (name tag): bar | outline | chalk | block | card. titleFont: sans | label | mono | hand. Colours are #RRGGBB.",
+  "BLUEPRINT": {
+    "label": "Blueprint: a technical drawing. Deep blue sheet with a fine grid, thin pale lines, cyan for what is pointed at, monospace labels.",
+    "bg": "#0F2A47", "bg2": "#0B2038", "card": "#163A5F", "text": "#EAF2FB", "muted": "#8FA9C4",
+    "accent": "#5FD0E6", "accentDeep": "#F2C14E", "onAccent": "#0B2038", "ink": "#EAF2FB",
+    "ground": "grid", "plate": "outline", "titleFont": "mono"
+  },
+  "CHALK": {
+    "label": "Chalkboard: a teacher at the board. Dark green board with chalk dust, soft white strokes, yellow and pink chalk for emphasis, handwritten labels.",
+    "bg": "#26332D", "bg2": "#1E2924", "card": "#2F3F37", "text": "#F3EFE4", "muted": "#A9B3A6",
+    "accent": "#F4D35E", "accentDeep": "#F28482", "onAccent": "#1E2924", "ink": "#F3EFE4",
+    "ground": "dust", "plate": "chalk", "titleFont": "hand"
+  },
+  "POSTER": {
+    "label": "Poster: flat editorial graphics. Off-white ground, big bold type, solid colour blocks, one vermilion accent and a deep blue.",
+    "bg": "#F4EFE6", "bg2": "#ECE5D8", "card": "#FFFFFF", "text": "#1B1B1F", "muted": "#6E6A64",
+    "accent": "#E4572E", "accentDeep": "#17377A", "onAccent": "#FFFFFF", "ink": "#1B1B1F",
+    "ground": "flat", "plate": "block", "titleFont": "label"
+  }
+}

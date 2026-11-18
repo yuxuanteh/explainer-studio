@@ -1,69 +1,96 @@
-# Visuals: style rules and the shot kit
+# Visuals: house style, layout, the animation engine, thumbnails
 
-The channel's own rules are in CHANNEL.md. The essentials:
+## House style
+The channel has **one house style** (a channel with several fields may have one per field: `CARD_THEME` in a
+piece's edl.py, else `[style] house` in studio.toml). There is no style choice per video. Chapter and end cards, the
+intro, the name tag, labels, the ground of every animated shot and the burned subtitles all follow it; only the
+logo is the same everywhere.
 
-## Fixed brand elements (channel palette, `[palette]` in studio.toml)
-- Intro sting (`templates/intro.py`, inserted automatically as the INTRO shot - redesign it around the logo),
-  end card (`EndCard`), logo, watermark (`gs.watermark()`, top-right), name tag (`gs.name_tag()`), subtitles.
-- Palette roles: `accent` (aliases `gs.GOLD`), `accent_hi`, `accent_deep`, `accent2` (`gs.CYAN`), `bg`
-  (`gs.DARK`), `bg_deep` (`gs.DARKER`), `card`, `line`, `text`, `muted`.
-- Fonts (`[fonts]`, installed in the OS - never `manimpango.register_font`): `gs.ZH_SERIF` titles (weight=HEAVY),
-  `gs.ZH_SANS` labels / captions, `gs.EN_LABEL` Latin labels (BOLD / MEDIUM), `gs.EN_TAG` tagline. A Latin-only
-  label font has no CJK glyphs: use `mixed(en, zh)`.
-
-## Episode palette (changes per episode)
-Animations, diagrams, maps and data plots get their own palette that fits the topic (volcano: lava reds /
-oranges; ocean: deep blues; limestone: off-white / grey-green). Keep contrast against the dark background and
-text readable. Define it at the top of shots.py.
+- A style is one entry of `<studio>/web/kit/themes.json`: `bg`, `bg2`, `card`, `text`, `muted`, `accent`,
+  `accentDeep`, `onAccent`, `ink`, `ground` (`grid | dust | paper | flat`), `plate` (the name tag: `bar | outline |
+  chalk | block | card`), `titleFont` (`sans | label | mono | hand`). `CHANNEL` is the look built from `[palette]`.
+- BLUEPRINT, CHALK and POSTER are examples. A channel's own style is a new entry plus, when it needs them, drawing
+  pieces in `web/kit/house.js` (a texture, a symbol set, a frame for photos). `gs_styles.py preview` shows any set
+  of styles side by side on the same sample shot; `gs_styles.py use <ID>` sets the channel's.
+- A hand-made subtitle look for a style: `<project>/brand/subtitles/<ID>.json` (fields of the ASS style lines);
+  without one, subtitle colours are derived from the style.
+- **Model for a new piece: the previous finished piece in the same style.** Reuse its shot modules and drawing
+  pieces; a style gets better by being used, not by being redesigned per video.
+- Changing the house style is the director's decision: show the comparison picture, never switch silently.
 
 ## Layout rules
-- **Subtitle band (y > 880 at 1080p)**: no *text* there (labels, legends, chips). **Graphics run to the frame
-  edge** (cross-sections, wavefronts, maps, panels): if the animation stops at 880 the subtitle area looks like a
-  separate empty strip.
-- Source note top-right for facts; kicker top-left (`gs.kicker("ENGLISH", zh="…")`).
-- Labels never cover the subject or the presenter. **Labels sit next to what they describe** (a magnitude chip
-  beside the pin, a distance next to the radius line). No label floating in an empty half; centre maps on the action.
+- Design size 1920×1080 (landscape) and 1080×1920 (portrait). **Nothing but subtitles below y = 880 (landscape) /
+  y = 1360 (portrait)**; in portrait the title band sits above y = 360, content between 400 and 1330.
+- Source note top right, left of the watermark. The watermark sits on every shot except the intro.
+- A label sits beside its subject with a leader line, never over the presenter's face or body, never across a
+  photo's credit.
+- One idea per shot. Things appear on the word that names them (`say(S, 'words')` gives the time those words are
+  spoken) and nothing leaves the frame half-explained.
+- No card that only repeats the narration in text.
+
+## Physics stays real, even in a diagram
+Directions, proportions and order of events are right, or the shot says it is a diagram (`sourceNote(S,
+'Diagram')`, the word from `[channel] diagram_label`). Real data over illustration when it exists: a real map, a
+real record, a real photo with its credit (`gs_photo.py` fetches a Wikimedia Commons photo with author and
+licence).
 
 ## On-screen text
-- **Never put the narration sentence on screen** - the subtitles already show it. Use only terms, numbers, very
-  short keywords, or nothing. Before sending, read every chip against its narration line and delete paraphrases.
-- A visual for something mentioned appears **on that word** (beats) and stays long enough to read; the thing being
-  contrasted is on screen from the start of the comparison.
-- When the narration describes an action ("seen from directly above"), the animation performs it.
-- References to the channel's earlier videos use the **real thumbnail**.
-- Maps with event locations: only real coordinates; where a source gave only a description, say so in the
-  source note and tell the director.
-
-## Camera CG placement
-- Centre wall CG **half-way between the frame edge and the presenter** (measure the presenter's edge on a frame;
-  write the free zone into CHANNEL.md once the set is fixed), not hugging the edge. Cards ~480 px wide, text
-  >= 24 px. Check hands (gestures reach far) on a contact sheet.
-- Text size in 1080p px via `gs.text(s, font, size)`; `at(x, y)` positions in 1080p px (origin top-left).
-
-## Shot kit (`scripts/gs_shotkit.py`)
-| Helper | Use |
-|---|---|
-| `Clocked` / `CamClocked` | time-driven scene; `self.t()`, `self.beats[...]`, `self.fade_at(mob, t_in, d, t_out, shift)`, `self.fade_each(group, ...)`, `self.run()` |
-| `ChapterCard`, `EndCard` | subclass and set texts |
-| `label_chip`, `mixed`, `warn_icon`, `pause_icon`, `play_icon` | labels and icons (no emoji / symbol glyphs - fonts lack them) |
-| `house`, `quake_signal`, `natural_earth_map(lon0, lat0, scale, bbox=...)` | example drawings (earth science); add your topic's reusable drawings |
-| `DeskPlane(near, A, B)`, `stick_figure(P, pose)` | CG standing on real furniture in a camera shot |
-| `ramp(t, t0, d)` | smooth 0->1 for custom animation |
-
-Draw continuously changing things with `always_redraw(lambda: ...)` reading `self.t()`; beats come from the edl
-so motion lands on the spoken word.
+Short. A term in the language `CHANNEL.md` says terms are shown in; a second language may appear once, small.
+Never mix scripts in one string when the label font lacks the glyphs (`mixed()` draws the two parts side by side).
 
 ## Camera shots with CG
-- Full-screen camera (not split screen). Grade with `CAM_GRADE` in edl.py.
-- First look at frames: where the presenter is, clean wall areas, real surfaces. CG never crosses the face or
-  body (gestures included). Wall CG = labels, diagrams, countdowns.
-- CG that stands on furniture: measure the perspective from a real object on that surface (a box seen corner-on:
-  shallow V bottom edges, thin top face, verticals vertical) -> `DeskPlane`. Add a contact shadow.
-- First appearance of the presenter: name tag 3-5 s.
+Graphics over a camera shot are drawn on a transparent canvas (`web/ep/<EP>/cam/<id>.js`): never a background.
+Look at a frame first (`gs_web.py <EP> review <id>` puts a still of the clip behind the graphics). The name tag
+appears for 3–5 s on the first appearance only.
 
-## Thumbnails
-1280x720, < 2 MB, three versions for YouTube "test & compare": A presenter + question, B illustration, C key fact /
-number. Huge text (≈ 140 px at 1280) with a dark outline, few words per line. All four layers are rendered (full,
-background without text, transparent text, transparent elements) so the director can rebuild in Canva.
-Portrait renders (`-r 1080,1350`): `config.frame_width` stays 14.2 while the real height grows and
-`config.frame_height` still reads 8 - compute `fh = fw * pixel_height / pixel_width` and use `move_to`, not `to_edge`.
+## Animation engine: web pages + the motion-showreel plugin
+Every shot is a small JavaScript module that draws one frame for a given time `t` on a canvas; a headless browser
+renders the frames and ffmpeg assembles them. Deterministic: the same `t` gives the same pixels, in any order.
+
+```
+web/ep/<EP>/shots/<id>.js    full-screen shots (animation, chapter card, end card), long video and short
+web/ep/<EP>/cam/<id>.js      graphics over a camera shot (transparent)
+web/ep/<EP>/assets/          photos, data, SVG used by the shots
+web/kit/                     gs.js (brand pieces), themes.json (styles), house.js (drawing pieces),
+                             intro.js (the channel intro), player.js, motion.js (easing, noise, cameras)
+```
+A module: `export default async function (S) { /* load images */ return t => { /* draw the frame at t */ }; }`.
+`S` = `{ id, kind, W, H, DW, DH, u, ctx, dur, beats, cues, vertical, style, img(path) }`; coordinates are design
+pixels, `S.u` scales them. **Rules: the picture depends on `t` only.** No `Math.random`, `Date.now`, timers,
+`requestAnimationFrame`, CSS animation, or state kept between frames; seeded noise from `motion.js`.
+
+Kit pieces (`gs.js`): `theme()`, `text`, `title`, `kicker`, `label`, `chip`, `mixed`, `rect`, `image`, `vis(t, in,
+d, out)`, `ramp`, `say(S, words)`, `beat(S, name)`, `nameTag`, `sourceNote`, `watermark`, `chapterCard`,
+`endCard`, `bg`. Drawing pieces (`house.js`): `styleBg`, `line` (can draw itself on), `fill`, `arrow`, `dot`,
+`note`, `photo`, `inside`. `web/kit/demo.js` is a short worked example.
+
+Workflow for step 5:
+1. `gs_web.py <EP> stubs`: a starting module for every shot (style ground, watermark, a placeholder).
+2. **Motion brief** (`work/motion-brief.md`, short, one per piece, before the first shot): per shot, what moves and
+   why, what appears on which word, what is reused from an earlier piece.
+3. Draw the shots. `gs_web.py <EP> stills <id> 0.5,3,7 [--guides]` gives stills and a contact sheet of one shot
+   (`--guides` paints the subtitle band red). `gs_web.py <EP> review [ids] [--short]` prints a command that opens a
+   live workspace with the shots and their sound.
+4. `gs_run.py <EP> preview [ids]`: determinism, render, build, motion QA (dead air, sudden jumps, flash frames),
+   the QA report and the review sheets in `<studio>/render/<EP>/review/`.
+5. Read the motion-showreel skill for the craft of motion (easing, staging, timing).
+
+### Self-check before sending
+Look at every review sheet: no text in the subtitle band, no missing glyphs (empty boxes), labels beside their
+subject, nothing covering the presenter, no card repeating the narration, things appear on their word, no blink at
+a cut, every shot with a fact has its source and every pure illustration says so. Then a design critique of the
+whole: does it read in two seconds, is one thing the centre of each frame, is it the house style throughout?
+
+### Chapter card and end card
+The chapter card shows the chapter's question, word for word. The end card is the YouTube end screen: 12 s, two
+video frames on the right and the bottom-left slot left empty for YouTube's own subscribe element (positions in
+`gs.js` `esSlots()`), one question for the comments (`ask`), never the next video's title.
+
+## Thumbnails: the idea first
+For each video, propose **ideas as text before making anything**: one line each (what the viewer sees, the two or
+three words on it, why it makes someone click) plus the frame or photo it would use. An idea per video, not a
+template with the title swapped. The director picks; then make it: a still of a shot (`gs_web.py <EP> stills`),
+a frame of the camera clip, the house style's colours and title font, large type that reads at phone size. A short's
+cover follows the same rule in 9:16. Version 2 has no thumbnail tool of its own: compose the picture with the
+animation engine (a one-off module rendered as a still) or an image tool, and keep the layered source so the
+director can change it.
