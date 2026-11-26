@@ -10,7 +10,9 @@ after it, every changed second means redrawing shots.
 3. Read `work/cut-report.md` and `work/recording-diff.md`. Fix what is plainly wrong before the director sees it
    (a line the cut could not find, a retake it flags as unsure). Tell the director what you fixed and what you are
    unsure of.
-4. **Stop.** The director opens http://localhost:8770 (`gs_review.py`; keep it running in the background).
+4. **Stop.** The director opens http://localhost:8770 by double-clicking `open-review-pages.bat` in the studio
+   folder (`open-review-pages.command` on a Mac) and keeps that window open; or start `gs_review.py` in the
+   background.
 5. Read `work/review/<name>.notes.json`, fix, `gs_run.py <EP> voicecut --keep-cut` (or without the flag when the
    script changed), until approved. **Then the timing is locked.**
 

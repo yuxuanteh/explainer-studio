@@ -100,6 +100,13 @@ Order once choices are made (each command only after its yes):
    conversation. Node.js 18+ is needed too; the installer prints the install command if it is missing.
 6. `python scripts/setup_studio.py status`: read it to the person in one or two lines (what is installed, what was
    skipped, how much disk the studio uses).
+7. The **launcher for the review pages**: `open-review-pages.bat` (Windows) or `open-review-pages.command` (macOS;
+   `chmod +x` it) sits in the studio folder. Offer a desktop shortcut to it. Test it the way the person will use it,
+   outside Claude: on Windows `explorer.exe <studio>\open-review-pages.bat`, then check that http://localhost:8770
+   answers, and stop it. On Windows the launcher first tries `.venv\Scripts\python.exe`; a `.venv` made from inside
+   the Claude desktop app can point at a Python only Claude can see, and then the launcher falls back to a plain
+   Python 3.12 (`py -3.12`, or `python` on PATH) with the `.venv`'s packages. If it says it found no Python, ask,
+   then install a plain Python 3.12 (`winget install Python.Python.3.12`, or python.org) and test again.
 
 ## 4 · Write the settings
 `setup_studio.py set <section> <key> <value>` writes one value and keeps the file's comments (values are TOML: text
@@ -160,7 +167,7 @@ not chosen in section 3 (ask again, with its size).
 ## 7 · Try it (optional, offer it)
 `python scripts/make_sample.py` makes a four-line sample short and has the computer's own voice read it like a real
 session (a spoken slate, a slip, the line read again). Then `python scripts/gs_run.py ss900-sample voicecut`, start
-the pages (`python scripts/gs_review.py`, http://localhost:8770) and let the person watch the cut, leave a note and
+the pages (double-click `open-review-pages.bat`, or `python scripts/gs_review.py`; http://localhost:8770) and let the person watch the cut, leave a note and
 try the editing page; with the `animation` part, `gs_run.py ss900-sample preview`. Say what each thing they see is.
 Use the measured time of this run to correct the estimate from section 1 ("the sample took 2 minutes, so a
 6-minute video is nearer 12 than 9"). Delete the sample when they are done (the three folders `make_sample.py`
@@ -182,13 +189,14 @@ instead, **suggest**, and **ask** for each one. Never assume.
 | The channel-website skill | Not part of version 2 | Their site keeps working. Version 0.1 of the plugin stays available as the git tag `v0.1.0` if they want that skill |
 
 Back up first: copy their studio's `scripts/`, `templates/`, `episodes/`, `studio.toml` to
-`<project>/studio-code-backup-v0.1/`. Then copy the new `scripts/`, `templates/`, `web/kit/`, `requirements/` in
+`<project>/studio-code-backup-v0.1/`. Then copy the new `scripts/`, `templates/`, `web/kit/`, `requirements/` and the launchers `open-review-pages.*` in
 (their `episodes/`, `studio.toml`, `models/` are not touched; the Whisper model they already downloaded is reused).
 
 ## 9 · Updating, moving, uninstalling
 - **Update the plugin**: the person runs `/plugin marketplace update explainer-studio` then
   `/plugin update explainer-studio@explainer-studio` (or reinstalls). Then compare `<plugin>/studio/` with their
-  studio: copy changed files of `scripts/`, `templates/`, `requirements/` and `web/kit/*.js` after
+  studio: copy changed files of `scripts/`, `templates/`, `requirements/`, `web/kit/*.js` and the launchers
+  `open-review-pages.*` (new in 2.0.2: offer the desktop shortcut and test it, section 3 item 7) after
   `python scripts/backup_code.py`. **Never overwrite** `studio.toml`, `web/kit/themes.json` (their style lives
   there: merge new entries only), `web/kit/intro.js` and `house.js` if they changed them (compare first, show the
   difference, ask), `web/kit/fonts.css`, anything under `episodes/`, `shorts/`, `web/ep/`. New settings:

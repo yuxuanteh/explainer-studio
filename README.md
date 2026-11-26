@@ -88,7 +88,8 @@ Seven steps. Claude stops where it says **Stop** and waits for your OK.
 4. **Intake, automatic cut, voice cut.** Your files are sorted by what you said. The first cut is made for you:
    the last take of every line is kept, retakes and long pauses go, subtitles are timed to your words. You watch
    the result on the **review page** and tap notes, or fix cuts and subtitles yourself on the **editing page**.
-   Nothing has been animated yet, so every change is free. **Stop.** After your OK the timing is locked.
+   Both pages open with a double-click on `open-review-pages.bat` in your studio folder
+   (`open-review-pages.command` on a Mac). Nothing has been animated yet, so every change is free. **Stop.** After your OK the timing is locked.
 5. **Animation with music, at 480p.** Every shot is drawn in your house style, to the locked timing. You comment;
    only those shots are redrawn. **Stop.**
 6. **Final master.** 1080p, the 9:16 short, translated subtitles.

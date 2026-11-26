@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.2 (2026-11-26)
+- A double-click launcher for the review page and the editing page: `open-review-pages.bat` (Windows) and
+  `open-review-pages.command` (macOS, Linux) in the studio folder. It opens http://localhost:8770 in the browser and
+  keeps a window open while the pages run. On Windows it falls back to a plain Python 3.12 when the studio's `.venv`
+  does not start outside Claude. Setup offers a desktop shortcut; existing studios get it with the next update.
+
 ## 2.0.1 (2026-11-18)
 - Subtitle files are named `subtitles.<language>_<COUNTRY>.srt` and `short.<language>_<COUNTRY>.srt`: Facebook accepts
   no other shape (they were `en.srt`, `short-en.srt`). Rename files of videos already made, or run

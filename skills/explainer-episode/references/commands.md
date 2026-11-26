@@ -14,7 +14,7 @@ All commands: from `<studio>/scripts`, with the studio's own Python (`../.venv/S
 | Intake | `intake.py 04-rock-cycle` / `intake.py b02`, then `--apply` | `intake.md`, files renamed into `raw/`, transcripts in `work/noprompt/` |
 | Recording diff | `recording_diff.py 04-rock-cycle` | `work/recording-diff.md` |
 | **Build anything** | `gs_run.py <EP> voicecut` / `preview [ids]` / `final` (`--keep-cut`, `--no-anim`) | every check in order, stops at the first problem; `READY` lines name the files; logs and `timings-<mode>.json` in `render/<EP>/logs/` |
-| Review + editing pages | `gs_review.py [port]` (run in the background) | http://localhost:8770 · notes in `work/review/<name>.notes.json` · edits in `work/edit.json` |
+| Review + editing pages | the director double-clicks `open-review-pages.bat` (Mac: `.command`) in the studio folder, or `gs_review.py [port]` (run in the background) | http://localhost:8770 · notes in `work/review/<name>.notes.json` · edits in `work/edit.json` |
 | Automatic cut alone | `gs_cut.py <EP> [--dry]` | `edl_auto.py`, `work/cut-report.md` |
 | Listen to one stretch again | `transcribe.py <episode folder> --stretch <file> <from> <to>` | words merged into `work/noprompt/<stem>.json` (old file kept) |
 | Voice cut alone | `gs_voicecut.py <EP> [short]` | `preview/<EP>-voicecut-480p.mp4` / `preview/short-voicecut.mp4` |
